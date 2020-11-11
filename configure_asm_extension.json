@@ -1,0 +1,51 @@
+{
+  "id" : "Synthetic Transaction",
+  "version" : "1.0.0",
+  "metricSpecifiers" : {
+    "Synthetic Transaction": [
+      {
+        "metricSpecifier": {
+          "format": "App Synthetic Monitor\\|Monitors\\|([^\\|)]+\\|)?<monitor>",
+          "type": "REGEX"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Synthetic Overview",
+        "metricNames": [
+          "Uptime (%)",
+          "Errors Per Interval"
+        ],
+        "filter": {}
+      },
+      {
+        "metricSpecifier": {
+          "format": "App Synthetic Monitor\\|Monitors\\|([^\\|)]+\\|)?<monitor>",
+          "type": "REGEX"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Synthetic Metrics",
+        "metricNames": [
+          "Total Time (ms)",
+          "Connect Time (ms)",
+          "Download Time (ms)",
+          "Processing Time (ms)"
+        ],
+        "filter": {}
+      }
+    ]
+  },
+  "alertMappings": {
+    "Synthetic Transaction": [
+      "App Synthetic Monitor|Monitors|<folder>|<monitor>|*|*|*",
+      "App Synthetic Monitor|Monitors|<folder>|<monitor>",
+      "App Synthetic Monitor|Monitors|<monitor>|*|*|*",
+      "App Synthetic Monitor|Monitors|<monitor>"
+    ]
+  },
+  "perspectives": []
+}
