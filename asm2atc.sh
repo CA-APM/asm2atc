@@ -38,7 +38,7 @@ curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/jso
 
 LOGIN=$(curl -s -d "user=$ASM_USER_EMAIL&password=$ASM_API_PASSWORD" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://api.asm.saas.broadcom.com/1.6/acct_login)
 
-#printf -- "%s\n" "ASM login response: $LOGIN";
+printf -- "%s\n" "ASM login response: $LOGIN";
 
 if [[ $LOGIN != *"<code>0</code>"* ]]; then
   printf -- "%s\n" "error in ASM login: $LOGIN";
@@ -46,12 +46,13 @@ if [[ $LOGIN != *"<code>0</code>"* ]]; then
 fi
 
 # extract token
-NKEY=`echo $LOGIN | sed -E 's#.*\<nkey\>(.*)\</nkey\>.*#\1#'`
+NKEY=`echo $LOGIN | sed -E 's#.*<nkey>(.*)</nkey>.*#\1#'`
 #printf -- "%s\n" "NKEY: $NKEY";
 
 
 # get rules from ASM API
-RULES=$(curl -d "nkey=$NKEY&view=json" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://api.asm.saas.broadcom.com/1.6/rule_get)
+RULES=$(curl -s -d "nkey=$NKEY&view=json" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://api.asm.saas.broadcom.com/1.6/rule_get)
+printf -- "%s\n\n" "RULES: $RULES";
 #RULES=`cat test.json`
 
 # split monitors
@@ -130,7 +131,7 @@ do
 done
 
 ATC_STRING=$ATC_STRING"],\"edges\":[]}}"
-printf -- "%s\n" "creating/updating $count monitors:  $ATC_STRING";
+printf -- "%s\n\n" "creating/updating $count monitors:  $ATC_STRING";
 
 
 curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data "$ATC_STRING" $APM_URL/apm/appmap/ats/graph/store
