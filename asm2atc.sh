@@ -38,7 +38,7 @@ curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/jso
 
 LOGIN=$(curl -s -d "user=$ASM_USER_EMAIL&password=$ASM_API_PASSWORD" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://api.asm.saas.broadcom.com/1.6/acct_login)
 
-#printf -- "%s\n" "ASM login response: $LOGIN";
+printf -- "%s\n" "ASM login response: $LOGIN";
 
 if [[ $LOGIN != *"<code>0</code>"* ]]; then
   printf -- "%s\n" "error in ASM login: $LOGIN";
