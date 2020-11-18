@@ -52,7 +52,7 @@ NKEY=`echo $LOGIN | sed -E 's#.*<nkey>(.*)</nkey>.*#\1#'`
 
 # get rules from ASM API
 RULES=$(curl -s -d "nkey=$NKEY&view=json" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://api.asm.saas.broadcom.com/1.6/rule_get)
-printf -- "%s\n\n" "RULES: $RULES";
+#printf -- "%s\n\n" "RULES: $RULES";
 #RULES=`cat test.json`
 
 # split monitors
@@ -84,10 +84,15 @@ do
       rid=${line%%"\","*}
       line=${line#*"\","}
       #printf -- "%s\n" "  rid:        $rid";
+      #printf -- "%s\n" "  line:       $line";
 
-      line=${line#*"\"folder\":\""}
-      folder=${line%%"\","*}
-      line=${line#*"\","}
+      if [[ $line == "\"folder\":null"* ]]; then
+        folder="ROOT_FOLDER";
+      else
+        line=${line#*"\"folder\":\""}
+        folder=${line%%"\","*}
+        line=${line#*"\","}
+      fi
       #printf -- "%s\n" "  folder:     $folder";
 
       line=${line#*"\"active\":\""}
@@ -112,22 +117,25 @@ do
 
       #printf -- "%s\n" "  line:       $line";
 
-      # append ',' to existing string if not first monitor
-      if [[ $count != 0 ]]; then
-        ATC_STRING="$ATC_STRING,"
+      # only create vertex if active
+      if [[ $active == "y" ]]; then
+
+        # append ',' to existing string if not first monitor
+        if [[ $count != 0 ]]; then
+          ATC_STRING="$ATC_STRING,"
+        fi
+        ((count++))
+
+        ATC_STRING="$ATC_STRING{\"id\":\"ASM:$folder:$monitor\",\"layer\":\"ATC\",\"attributes\":{"
+        ATC_STRING="$ATC_STRING\"name\":\"$folder|$monitor\",\"type\":\"Synthetic Transaction\","
+        ATC_STRING="$ATC_STRING\"agent\":\"$APM_AGENT_NAME\","
+        ATC_STRING="$ATC_STRING\"monitor\":\"$monitor\",\"folder\":\"$folder\","
+        ATC_STRING="$ATC_STRING\"active\":\"$active\",\"interval\":\"$interval\","
+        ATC_STRING="$ATC_STRING\"monitor_type\":\"$type\",\"host\":\"$host\","
+  		  ATC_STRING="$ATC_STRING\"ASM link\":\"https://asm.saas.broadcom.com/logviewer.php?rid=$rid\","
+  		  ATC_STRING="$ATC_STRING\"IsExperience\":\"Yes\",\"Experience\":\"$folder|$monitor\"}}"
       fi
-      ((count++))
-
-      ATC_STRING="$ATC_STRING{\"id\":\"ASM:$folder:$monitor\",\"layer\":\"ATC\",\"attributes\":{"
-      ATC_STRING="$ATC_STRING\"name\":\"$folder|$monitor\",\"type\":\"Synthetic Transaction\","
-      ATC_STRING="$ATC_STRING\"agent\":\"$APM_AGENT_NAME\","
-      ATC_STRING="$ATC_STRING\"monitor\":\"$monitor\",\"folder\":\"$folder\","
-      ATC_STRING="$ATC_STRING\"active\":\"$active\",\"interval\":\"$interval\","
-      ATC_STRING="$ATC_STRING\"monitor_type\":\"$type\",\"host\":\"$host\","
-		  ATC_STRING="$ATC_STRING\"ASM link\":\"https://asm.saas.broadcom.com/logviewer.php?rid=$rid\","
-		  ATC_STRING="$ATC_STRING\"IsExperience\":\"Yes\",\"Experience\":\"$folder|$monitor\"}}"
     fi
-
 done
 
 ATC_STRING=$ATC_STRING"],\"edges\":[]}}"
