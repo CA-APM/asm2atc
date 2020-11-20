@@ -1,6 +1,5 @@
 #!/bin/sh
 
-CONFIG_FILENAME=asm2atc.cfg
 
 config_read_file() {
     (grep -E "^${2}=" -m 1 "${1}" 2>/dev/null || echo "VAR=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2-;
@@ -14,6 +13,20 @@ config_get() {
     printf -- "%s" "${val}";
 }
 
+
+# find path of script and files in that directory
+#echo $0
+ 
+full_path=$(realpath $0)
+#echo $full_path
+ 
+dir_path=$(dirname $full_path)
+#echo $dir_path
+CONFIG_FILENAME=$dir_path/asm2atc.cfg
+EXTENSION_FILENAME=$dir_path/configure_asm_extension.json
+
+[ ! -f "$CONFIG_FILENAME" ] && { echo "$0: $CONFIG_FILENAME file not found."; exit 2; }
+[ ! -f "$EXTENSION_FILENAME" ] && { echo "$0: $EXTENSION_FILENAME file not found."; exit 2; }
 
 # read parameters
 
@@ -31,7 +44,7 @@ ASM_API_PASSWORD="$(config_get ASM_API_PASSWORD)";
 
 # configure the ASM extension in DX APM Team Center
 
-curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data @configure_asm_extension.json $APM_URL/apm/appmap/ats/extension/configure
+curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data @$EXTENSION_FILENAME $APM_URL/apm/appmap/ats/extension/configure
 
 
 # login to ASM API
