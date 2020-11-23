@@ -1,6 +1,6 @@
 {
   "id" : "Synthetic Transaction",
-  "version" : "1.0.0",
+  "version" : "1.0.5",
   "metricSpecifiers" : {
     "Synthetic Transaction": [
       {
@@ -15,6 +15,7 @@
         "section": "Synthetic Overview",
         "metricNames": [
           "Uptime (%)",
+          "Last Check Status",
           "Errors Per Interval"
         ],
         "filter": {}
