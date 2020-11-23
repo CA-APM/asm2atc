@@ -16,10 +16,10 @@ config_get() {
 
 # find path of script and files in that directory
 #echo $0
- 
+
 full_path=$(realpath $0)
 #echo $full_path
- 
+
 dir_path=$(dirname $full_path)
 #echo $dir_path
 CONFIG_FILENAME=$dir_path/asm2atc.cfg
@@ -77,10 +77,14 @@ while [[ $s ]]; do
     s=${s#*"$delimiter"};
 done;
 
-# create string send to ATC API
+# create string to send to ATC API to create/update vertices
 ATC_STRING="{\"graph\":{\"vertices\":["
+EDGE_STRING="\"edges\": ["
 
 count=0
+edgeCount=0
+
+#iterate over all rules
 for line in "${array[@]}"
 do
     #printf -- "%s\n" "line: $line";
@@ -139,20 +143,74 @@ do
         fi
         ((count++))
 
-        ATC_STRING="$ATC_STRING{\"id\":\"ASM:$folder:$monitor\",\"layer\":\"ATC\",\"attributes\":{"
-        ATC_STRING="$ATC_STRING\"name\":\"$folder|$monitor\",\"type\":\"Synthetic Transaction\","
-        ATC_STRING="$ATC_STRING\"agent\":\"$APM_AGENT_NAME\","
-        ATC_STRING="$ATC_STRING\"monitor\":\"$monitor\",\"folder\":\"$folder\","
-        ATC_STRING="$ATC_STRING\"active\":\"$active\",\"interval\":\"$interval\","
-        ATC_STRING="$ATC_STRING\"monitor_type\":\"$type\",\"host\":\"$host\","
-  		  ATC_STRING="$ATC_STRING\"ASM link\":\"https://asm.saas.broadcom.com/logviewer.php?rid=$rid\","
-  		  ATC_STRING="$ATC_STRING\"IsExperience\":\"Yes\",\"Experience\":\"$folder|$monitor\"}}"
+        # create ATC vertex
+        ATC_STRING="$ATC_STRING{\"id\":\"ASM:$folder:$monitor\", \
+          \"layer\":\"ATC\",\"attributes\":{ \
+          \"name\":\"$folder|$monitor\", \
+          \"type\":\"Synthetic Transaction\", \
+          \"agent\":\"$APM_AGENT_NAME\", \
+          \"monitor\":\"$monitor\", \
+          \"folder\":\"$folder\", \
+          \"active\":\"$active\", \
+          \"interval\":\"$interval\", \
+          \"monitor_type\":\"$type\", \
+          \"host\":\"$host\", \
+  		    \"ASM link\":\"https://asm.saas.broadcom.com/logviewer.php?rid=$rid\", \
+  		    \"IsExperience\":\"Yes\", \
+          \"Experience\":\"$folder|$monitor\"}}"
+
+        # create graph query for BT vertex with serviceID=$folder,
+        # name=$monitor Step * via ASM*
+        GRAPH_STRING="{\"includeStartPoint\":false, \
+          \"outputLayer\":\"ATC\", \
+          \"attributesToInclude\":[\"name\",\"type\",\"serviceId\"], \
+          \"orItems\":[{\"andItems\":[{ \
+            \"itemType\" : \"attributeFilter\",\
+            \"attributeName\": \"type\", \
+            \"attributeOperator\": \"IN\", \
+            \"values\": [ \"BUSINESSTRANSACTION\" ], \
+            \"layer\":\"ATC\" \
+          },{ \
+            \"itemType\" : \"attributeFilter\",\
+            \"attributeName\": \"serviceId\", \
+            \"attributeOperator\": \"IN\", \
+            \"values\": [ \"$folder\" ], \
+            \"layer\":\"ATC\" \
+          },{ \
+            \"itemType\" : \"attributeFilter\", \
+            \"attributeName\": \"name\", \
+            \"attributeOperator\": \"MATCHES\", \
+            \"values\": [ \"$monitor Step * via ASM*\" ], \
+            \"layer\":\"ATC\" \
+          } ] } ] }"
+
+        # run vertex query
+        VERTEX=$(curl -s -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data "$GRAPH_STRING" $APM_URL/apm/appmap/graph/vertex)
+        #printf -- "%s\n\n" "  VERTEX:       $VERTEX";
+
+        # if we received an id create an edge from new synthetic to existing BT vertex
+        if [[ $VERTEX == *"}},\"id\":\""* ]]; then
+          VERTEX=${VERTEX#*"}},\"id\":\""}
+          id=${VERTEX%%"\"}"*}
+          #printf -- "%s\n\n" "  found id:       $id";
+
+          # append ',' to existing string if not first monitor
+          if [[ $edgeCount != 0 ]]; then
+            EDGE_STRING="$EDGE_STRING,"
+          fi
+          ((edgeCount++))
+
+          EDGE_STRING="$EDGE_STRING{ \
+            \"source\": \"ASM:$folder:$monitor\", \
+            \"targetId\": $id, \
+            \"flowId\": $id}"
+        fi
       fi
     fi
 done
 
-ATC_STRING=$ATC_STRING"],\"edges\":[]}}"
-printf -- "%s\n\n" "creating/updating $count monitors:  $ATC_STRING";
+ATC_STRING=$ATC_STRING"],$EDGE_STRING]}}"
+printf -- "%s\n%s\n\n" "creating/updating $count monitors and $edgeCount edges:" "$ATC_STRING";
 
 
 curl -H "Authorization: Bearer $APM_API_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data "$ATC_STRING" $APM_URL/apm/appmap/ats/graph/store
