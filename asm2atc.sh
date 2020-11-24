@@ -16,8 +16,11 @@ config_get() {
 
 # find path of script and files in that directory
 #echo $0
-
-full_path=$(realpath $0)
+full_path=$0
+# if not on Mac
+if [[ `uname -a` != *Darwin* ]]; then
+  full_path=$(realpath $0)
+fi
 #echo $full_path
 
 dir_path=$(dirname $full_path)
@@ -151,6 +154,7 @@ do
           \"agent\":\"$APM_AGENT_NAME\", \
           \"monitor\":\"$monitor\", \
           \"folder\":\"$folder\", \
+          \"serviceId\":\"$folder\", \
           \"active\":\"$active\", \
           \"interval\":\"$interval\", \
           \"monitor_type\":\"$type\", \
@@ -180,7 +184,7 @@ do
             \"itemType\" : \"attributeFilter\", \
             \"attributeName\": \"name\", \
             \"attributeOperator\": \"MATCHES\", \
-            \"values\": [ \"$monitor Step * via ASM*\" ], \
+            \"values\": [ \"$monitor* via ASM*\" ], \
             \"layer\":\"ATC\" \
           } ] } ] }"
 

@@ -58,18 +58,25 @@ Each vertex will have the following properties:
 
 The following metrics are mapped to the `Synthetic Monitor` vertex:
 * Uptime (%)
+* Last Check Status
 * Errors Per Interval
 * Total Time (ms)
 * Connect Time (ms)
 * Download Time (ms)
 * Processing Time (ms)
 
+In addition, the script will look for existing `BUSINESSTRANSACTION` nodes in the ATC map and connect the corresponding `Synthetic Monitor` vertex to it if:
+ * `BUSINESSTRANSACTION.Business Service == Synthetic Monitor.folder`
+ * `BUSINESSTRANSACTION.Name` =~ `Synthetic Monitor.monitor` \*via ASM\*, i.e. the name must start with the monitor name and also contain "via ASM".
+
+E.g. the `BUSINESSTRANSACTION` vertex with `Business Service` attribute "Ticketing" and `name` "TixChange Step 13 via ASM 10" will match a `Synthetic Monitor` vertex with `folder` "Ticketing" and `monitor` "TixChange".
+
 ## Custom Management Modules
-A Management Module is not included but all alerts that are defined for the monitors will be mapped to the corresponding vertex. This can be used for alerting via any channels provide in DX OI.
+A Management Module is not included but all alerts that are defined for the monitors will be mapped to the corresponding vertex. This can be used for alerting via any channels provided in DX OI.
 
 
 ## Debugging and Troubleshooting
-Enable additional printf commands in `asm2atc.sh`.
+Enable additional printf commands in `asm2atc.sh` to get debugging output.
 
 
 ## Support
@@ -97,3 +104,4 @@ Changes for each version of the extension.
 Version | Author | Comment
 --------|--------|--------
 1.0 | Broadcom Inc. | First version of the extension.
+1.0 | Broadcom Inc. | Fixes and create edge to Business Transaction vertex
