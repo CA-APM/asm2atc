@@ -69,7 +69,21 @@ In addition, the script will look for existing `BUSINESSTRANSACTION` nodes in th
  * `BUSINESSTRANSACTION.Business Service == Synthetic Monitor.folder`
  * `BUSINESSTRANSACTION.Name` =~ `Synthetic Monitor.monitor` \*via ASM\*, i.e. the name must start with the monitor name and also contain "via ASM".
 
-E.g. the `BUSINESSTRANSACTION` vertex with `Business Service` attribute "Ticketing" and `name` "TixChange Step 13 via ASM 10" will match a `Synthetic Monitor` vertex with `folder` "Ticketing" and `monitor` "TixChange".
+E.g. the `BUSINESSTRANSACTION` vertex with `Business Service` attribute *Ticketing* and `name` *TixChange Step 13 via ASM 10* will match a `Synthetic Monitor` vertex with `folder` *Ticketing* and `monitor` *TixChange*.
+
+### End User Experience Monitoring (EUM)
+In order to get `BUSINESSTRANSACTION` vertices created by APM from the transactions coming for ASM you have to add additional headers to your monitor configuration in ASM. DX App Experience Analytics (AXA) or DX APM Browser Agent send those headers automatically.
+
+In the `Advanced` section of your ASM monitor configuration under `Transaction Tag Header` select the option `Mobile Apps Analytics monitors` and set the headers accordingly. See [End User Experience Monitoring](https://techdocs.broadcom.com/us/en/ca-enterprise-software/it-operations-management/dx-apm-saas/SaaS/implementing-agents/extend-data-monitoring/end-user-endpoints-monitoring.html) in the APM documentation for more information. E.g.:
+
+![Transaction Tag Header configuration](images/monitor_configuration.png)
+
+Currently `{step_number}` is not substituted for Webdriver monitors, only for jmeter scripts.
+
+That configuration will create this node in APM:
+![ATC Map](images/atc.png)
+
+The nodes in the left column are the `Synthetic Transactions` created by `asm2atc`. In the center are the `Business Transactions` created by APM from the EUE headers in the http requests from either ASM, browser agent or mobile app. And further to the right (hidden by the panel) are the `Generic Frontends, Servlets, …` nodes created by DX APM from the java application.
 
 ## Custom Management Modules
 A Management Module is not included but all alerts that are defined for the monitors will be mapped to the corresponding vertex. This can be used for alerting via any channels provided in DX OI.
