@@ -1,0 +1,1246 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 24604,
+  "iteration": 1596700786188,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link",
+      "url": "https://grafana-reporter.dxi-na1.saas.broadcom.com/api/v5/report/C3dFSDRMz"
+    }
+  ],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": null,
+      "fill": 5,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": ".*:(.*) \\(ms\\)",
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "App Synthetic Monitor\\|Monitors\\|([^|]*\\|)?[^|]*:(Resolve|Connect|Download) Time \\(ms\\)"
+                },
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "CHILDREN",
+                  "prefix": "App Synthetic Monitor|Monitors|$InspectedMonitor",
+                  "recursive": false
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Performance Breakdown",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": ".*:(.*) \\(ms\\)",
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Total Time (ms)"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Total Time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 11,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": ".*:(.*) \\(kB\\)",
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Download Size (kB)"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Download Size",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": ".*:(.*)",
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Errors Per Interval"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Errors Per Interval",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "AIOps_Metrics",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 13,
+      "interval": null,
+      "legend": {},
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Performance Status"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": "2,3",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Last Check Status",
+      "type": "singlestat",
+      "valueFontSize": "200%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#d44a3a",
+        "rgba(237, 129, 40, 0.89)",
+        "#299c46"
+      ],
+      "datasource": "AIOps_Metrics",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 14,
+      "interval": null,
+      "legend": {},
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Uptime Current Average (%)"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": "50,90",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Uptime Current Average",
+      "type": "singlestat",
+      "valueFontSize": "200%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "avg"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#d44a3a",
+        "rgba(237, 129, 40, 0.89)",
+        "#299c46"
+      ],
+      "datasource": "AIOps_Metrics",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "id": 15,
+      "interval": null,
+      "legend": {},
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "names": [
+                    "App Synthetic Monitor|Monitors|$InspectedMonitor:Uptime Daily Average (%)"
+                  ],
+                  "op": "EXACT"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "$AgentRegEx"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "hammond"
+        }
+      ],
+      "thresholds": "50,90",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "\"$InspectedMonitor\" Monitor Uptime Daily Average",
+      "type": "singlestat",
+      "valueFontSize": "200%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "avg"
+    }
+  ],
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [
+    "DX APM",
+    "ASM"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "folder name|monitor name",
+          "value": "folder name|monitor name"
+        },
+        "hide": 0,
+        "label": "Inspected Monitor",
+        "name": "InspectedMonitor",
+        "options": [
+          {
+            "selected": false,
+            "text": "folder name|monitor name",
+            "value": "folder name|monitor name"
+          }
+        ],
+        "query": "folder name|monitor name",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": ".*\\|ASM\\|App Synthetic Monitor Agent.*",
+          "value": ".*\\|ASM\\|App Synthetic Monitor Agent.*"
+        },
+        "hide": 2,
+        "label": null,
+        "name": "AgentRegEx",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*\\|ASM\\|.*",
+            "value": ".*\\|ASM\\|.*"
+          }
+        ],
+        "query": ".*\\|ASM\\|.*",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "APM: Key Metrics For Single Monitor",
+  "uid": "C3dFSDRMz",
+  "version": 10
+}
