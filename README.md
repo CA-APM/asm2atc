@@ -78,7 +78,7 @@ In the `Advanced` section of your ASM monitor configuration under `Transaction T
 
 ![Transaction Tag Header configuration](images/monitor_configuration.png)
 
-Currently `{step_number}` is not substituted for Webdriver monitors, only for jmeter scripts.
+Use the folder name e.g. `Ticketing` as Business Service name (`bs=Ticketing`) and the monitor name e.g. `TixChange` as business transaction name `bt=TixChange` and set platform `p=ASM` in the Transaction Tag Header configuration of you monitor. `bt=TixChange Step {step_number}` matches as well as we compare to `$monitor* via ASM*` in `asm2arc.sh`. The appendix `via ASM` is automatically appended by APM just like `via iOS` or `via Chrome`. If your monitor is not in a folder but at the top level use `bs=ROOT_FOLDER`. Currently `{step_number}` is not substituted for Webdriver monitors, only for jmeter scripts.
 
 That configuration will create this node in APM:
 ![ATC Map](images/atc.png)
